@@ -8,7 +8,8 @@ from fractions import Fraction
 def calculate(user_input):
     parsed_input = parse(user_input)
     subtotal = divide_and_multiply(parsed_input)
-    return add_and_subtract(subtotal)
+    total = add_and_subtract(subtotal)
+	return normalize(total)
     # except Exception as e:
         # print("Caluclation error: ", e)
 
@@ -142,8 +143,7 @@ def main():
             if user_input == 'done':
                 break
             else:
-                result = calculate(user_input)
-                print(normalize(result[0]))
+                print(calculate(user_input)
 
         except KeyboardInterrupt:
             break
