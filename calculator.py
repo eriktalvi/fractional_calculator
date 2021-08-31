@@ -79,11 +79,11 @@ def divide_and_multiply(equation):
             lhs = simplify_fraction(operands[0])
             rhs = simplify_fraction(operands[1])
             if operator == '/':
-                num = int(lhs[0]) * int(rhs[1])
-                den = int(lhs[1]) * int(rhs[0])
+                num = lhs[0] * rhs[1]
+                den = lhs[1] * rhs[0]
             else:
-                num = int(lhs[0]) * int(rhs[0])
-                den = int(lhs[1]) * int(rhs[1])
+                num = lhs[0] * rhs[0]
+                den = lhs[1] * rhs[1]
             pos = operands[2]
             equation[pos] = [num, '/', den]
             del equation[pos + 1]
@@ -98,9 +98,9 @@ def add_and_subtract(equation):
             operands = get_operands(operator, equation)
             lhs = simplify_fraction(operands[0])
             rhs = simplify_fraction(operands[1])
-            den = math.gcd(int(lhs[1]), int(rhs[1]))
-            lhs_num = int(den/int(lhs[1])) * int(lhs[0])
-            rhs_num = int(den/int(rhs[1])) * int(rhs[0])
+            den = math.gcd(lhs[1], rhs[1])
+            lhs_num = den/lhs[1] * lhs[0]
+            rhs_num = den/rhs[1] * rhs[0]
             if operator == '-':
                 num = lhs_num - rhs_num
             if operator == '+':
@@ -115,7 +115,7 @@ def add_and_subtract(equation):
 def normalize(equation):
     num = equation[0]
     den = equation[2]
-    if int(den) == 1:
+    if den == 1:
         return num
     else:
         # used fraction module because I didn't want to write this out
@@ -123,9 +123,9 @@ def normalize(equation):
         num = frac.numerator
         den = frac.denominator
         if num > den:
-            whole = int(num/den)
+            whole = num / den
             num = num % den
-            if int(num) == 0:
+            if num == 0:
                 return whole
             else:
                 return str(whole) + '_' + str(num) + '/' + str(den)
