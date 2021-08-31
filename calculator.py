@@ -35,22 +35,7 @@ def parse(user_input):
 
 
 def simplify_fraction(token):
-    if '_' in token:
-        split = token.split('_')
-        whole = split[0]
-        rest = split[1]
-        if '/' in token:
-            split = rest.split('/')
-            try:
-                den = split[1]
-            except IndexError:
-                den = 1
-
-            num = int(split[0]) + int(den) * int(whole)
-            return [int(num), int(den)]
-        else:
-            return [int(whole + rest), int(1)]
-    elif '/' in token:
+    if '/' in token:
         try:
             split = token.split('/')
         except AttributeError:
@@ -60,8 +45,16 @@ def simplify_fraction(token):
             den = split[1]
         except IndexError:
             den = 1
-        num = split[0]
+        num = split[0]    
+        
+        if '_' in token:
+            split = num.split('_')
+            whole = split[0]
+            print(num, den, whole)
+            num = int(split[1]) + int(den) * int(whole)
         return [int(num), int(den)]
+    elif '_' in token:
+        raise Exception('format error, cant have whole mixed fraction without denominator')
     else:
         return [int(token), 1]
 
@@ -94,12 +87,14 @@ def divide_and_multiply(equation):
 
 
 def add_and_subtract(equation):
+    print(equation)
     operators = ['-', '+']
     for operator in operators:
         while operator in equation:
             operands = get_operands(operator, equation)
             lhs = simplify_fraction(operands[0])
             rhs = simplify_fraction(operands[1])
+            print(lhs, rhs)
             den = math.lcm(lhs[1], rhs[1])
             lhs_num = int(den/lhs[1] * lhs[0])
             rhs_num = int(den/rhs[1] * rhs[0])
@@ -111,11 +106,11 @@ def add_and_subtract(equation):
             equation[pos] = [num, '/', den]
             del equation[pos + 1]
             del equation[pos - 1]
+    print(equation)
     return equation
 
 
 def normalize(equation):
-    print(equation)
     num = equation[0]
     den = equation[2]
     if int(den) == 1:
