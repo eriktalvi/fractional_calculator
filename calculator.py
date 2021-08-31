@@ -45,8 +45,8 @@ def simplify_fraction(token):
             den = split[1]
         except IndexError:
             den = 1
-        num = split[0]    
-        
+        num = split[0]
+
         if '_' in token:
             split = num.split('_')
             whole = split[0]
@@ -54,7 +54,8 @@ def simplify_fraction(token):
             num = int(split[1]) + int(den) * int(whole)
         return [int(num), int(den)]
     elif '_' in token:
-        raise Exception('format error, cant have whole mixed fraction without denominator')
+        raise Exception('format error, cant have whole mixed ',
+                        'fraction without denominator')
     else:
         return [int(token), 1]
 
