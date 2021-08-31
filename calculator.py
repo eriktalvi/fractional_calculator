@@ -9,7 +9,7 @@ def calculate(user_input):
     parsed_input = parse(user_input)
     subtotal = divide_and_multiply(parsed_input)
     total = add_and_subtract(subtotal)
-    return normalize(total)
+    return normalize(total[0])
     # except Exception as e:
         # print("Caluclation error: ", e)
 
