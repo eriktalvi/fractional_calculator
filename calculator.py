@@ -36,8 +36,8 @@ def parse(user_input):
 def simplify_fraction(token):
     if '_' in token:
         split = token.split('_')
-        whole = split[0]
-        rest = split[1]
+        whole = int(split[0])
+        rest = int(split[1])
         if '/' in token:
             split = rest.split('/')
             try:
@@ -47,7 +47,7 @@ def simplify_fraction(token):
             num = int(split[0]) + int(den) * int(whole)
             return [int(num), int(den)]
         else:
-            return [whole + rest, 1]
+            return [whole + rest, int(1)]
     elif '/' in token:
         try:
             split = token.split('/')
@@ -116,7 +116,7 @@ def normalize(equation):
     num = equation[0]
     den = equation[2]
     if den == 1:
-        return num
+        return int(num)
     else:
         # used fraction module because I didn't want to write this out
         frac = Fraction(num, den)
@@ -126,7 +126,7 @@ def normalize(equation):
             whole = num / den
             num = num % den
             if num == 0:
-                return whole
+                return int(whole)
             else:
                 return str(whole) + '_' + str(num) + '/' + str(den)
         else:
