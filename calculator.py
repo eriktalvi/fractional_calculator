@@ -9,8 +9,8 @@ def calculate(user_input):
     parsed_input = parse(user_input)
     subtotal = divide_and_multiply(parsed_input)
     return add_and_subtract(subtotal)
-#    except Exception as e:
-#        print("Caluclation error: ", e)
+    # except Exception as e:
+        # print("Caluclation error: ", e)
 
 
 def parse(user_input):
@@ -45,7 +45,7 @@ def simplify_fraction(token):
             except IndexError:
                 den = 1
             num = int(split[0]) + int(den) * int(whole)
-            return [num, den]
+            return [int(num), int(den)]
         else:
             return [whole + rest, 1]
     elif '/' in token:
@@ -59,9 +59,9 @@ def simplify_fraction(token):
         except IndexError:
             den = 1
         num = split[0]
-        return [num, den]
+        return [int(num), int(den)]
     else:
-        return [token, 1]
+        return [int(token), 1]
 
 
 def get_operands(operator, equation):
@@ -147,7 +147,7 @@ def main():
 
         except KeyboardInterrupt:
             break
-#        except:
-#            print("Bad Format")
+        except:
+            print("Bad Format")
 if __name__ == '__main__':
     main()
